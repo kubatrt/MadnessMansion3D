@@ -15,8 +15,6 @@ public class GameManager : MonoBehaviour
     {
         BeginGame();
 
-        if (mazeObject == null) return;
-
         Maze maze = mazeObject.GetComponent<Maze>();
         if (maze) Debug.Log("Maze found!");
     }
@@ -40,11 +38,13 @@ public class GameManager : MonoBehaviour
         Debug.Log("Begin");
 
         mazeInstance = Instantiate<Maze>(mazePrefab);
+        StartCoroutine(mazeInstance.Generate());
     }
 
     private void RestartGame()
     {
         Debug.Log("Restart");
+        StopAllCoroutines();
         Destroy(mazeInstance.gameObject);
         BeginGame();
     }
