@@ -5,7 +5,6 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     public Maze mazePrefab;
-    public GameObject mazeObject;
 
     private Maze mazeInstance;
 
@@ -15,17 +14,16 @@ public class GameManager : MonoBehaviour
     {
         BeginGame();
 
-        Maze maze = mazeObject.GetComponent<Maze>();
+        Debug.Log("Random: " + MazeDirections.RandomValue);
+
+
+       Maze maze = mazeInstance.GetComponent<Maze>();
         if (maze) Debug.Log("Maze found!");
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetKey(KeyCode.Space))
-        {
-            Debug.Log("Space pressed");
-        }
 
         if(Input.GetKeyDown(KeyCode.R))
         {
