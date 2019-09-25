@@ -3,8 +3,15 @@
 public class MazeCell : MonoBehaviour
 {
     public Vector2Int coordinates;
+    public MazeRoom room;
 
     private int initializedEdgesCount;
+
+    public void Initialize(MazeRoom room)
+    {
+        room.Add(this);
+        transform.GetChild(0).GetComponent<Renderer>().material = room.settings.floorMaterial;
+    }
 
     public bool IsFullyInitialized
     {

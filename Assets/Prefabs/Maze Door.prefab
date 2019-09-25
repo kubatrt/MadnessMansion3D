@@ -305,7 +305,7 @@ Transform:
   m_GameObject: {fileID: 1878737918390980216}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -0.3, y: 0, z: 0.5}
-  m_LocalScale: {x: 1, y: 1, z: 0.5}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1001438253849073962}
   m_Father: {fileID: 1119028431549433049}
@@ -449,7 +449,6 @@ GameObject:
   - component: {fileID: 7149925091329983651}
   - component: {fileID: 4119113224732907740}
   - component: {fileID: 5463412605001523284}
-  - component: {fileID: 3999129520740350551}
   m_Layer: 0
   m_Name: Handle
   m_TagString: Untagged
@@ -464,9 +463,9 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6381263453114869745}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.35, y: 0.05, z: 0}
-  m_LocalScale: {x: 0.15, y: 0.05, z: 2}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.3, y: 0, z: 0}
+  m_LocalScale: {x: 0.2, y: 0.1, z: 2}
   m_Children: []
   m_Father: {fileID: 1001438253849073962}
   m_RootOrder: 0
@@ -497,7 +496,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 93b1c754ece30864ab0f395a6a7491c2, type: 2}
+  - {fileID: 2100000, guid: f863b5f243613e9439805e4125ff59d6, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -518,19 +517,6 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!65 &3999129520740350551
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6381263453114869745}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &7719652999039257405
 GameObject:
   m_ObjectHideFlags: 0
@@ -580,6 +566,7 @@ MonoBehaviour:
   otherCell: {fileID: 0}
   direction: 0
   hinge: {fileID: 211127397358916151}
+  frame: {fileID: 7955988314980660895}
 --- !u!1 &8664120367883888493
 GameObject:
   m_ObjectHideFlags: 0
