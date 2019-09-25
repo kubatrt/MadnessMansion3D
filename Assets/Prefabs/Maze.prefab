@@ -50,4 +50,4 @@ MonoBehaviour:
     type: 3}
   wallPrefab: {fileID: -9142615201385872497, guid: 622c5154421ebdf4299a1a88e79f370c,
     type: 3}
-  generationStepDelay: 0.01
+  generationStepDelay: 0.005

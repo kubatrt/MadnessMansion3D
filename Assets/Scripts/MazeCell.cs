@@ -4,6 +4,16 @@ public class MazeCell : MonoBehaviour
 {
     public Vector2Int coordinates;
 
+    private int initializedEdgesCount;
+
+    public bool IsFullyInitialized
+    {
+        get
+        {
+            return initializedEdgesCount == MazeDirections.Count;
+        }
+    }
+
     private MazeCellEdge[] edges = new MazeCellEdge[MazeDirections.Count];
 
     public MazeCellEdge GetEdge(MazeDirection direction)
@@ -14,5 +24,26 @@ public class MazeCell : MonoBehaviour
     public void SetEdge(MazeDirection direction, MazeCellEdge edge)
     {
         edges[(int)direction] = edge;
+        initializedEdgesCount++;
+    }
+
+    public MazeDirection RandomUninitializedDirection
+    {
+        get
+        {
+            int skips = Random.Range(0, MazeDirections.Count - initializedEdgesCount);
+            for(int i=0; i < MazeDirections.Count; i++)
+            {
+                if(edges[i] == null)
+                {
+                    if (skips == 0)
+                    {
+                        return (MazeDirection)i;
+                    }
+                    skips--;
+                }
+            }
+            throw new System.InvalidOperationException("MazeCell has no unitialized directions left.");
+        }
     }
 }

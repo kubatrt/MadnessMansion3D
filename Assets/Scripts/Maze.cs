@@ -2,6 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+
+/*
+ * Growing Tree algorithm
+ * http://weblog.jamisbuck.org/2011/1/27/maze-generation-growing-tree-algorithm
+ */
+
+
 public class Maze : MonoBehaviour
 {
     public Vector2Int size;
@@ -36,9 +43,9 @@ public class Maze : MonoBehaviour
         WaitForSeconds delay = new WaitForSeconds(generationStepDelay);
 
         cells = new MazeCell[size.x, size.y];
-        List<MazeCell> activeCells = new List<MazeCell>(cells.Length);
-        DoFirstGenerationStep(activeCells);
+        List<MazeCell> activeCells = new List<MazeCell>(cells.Length);      // activeCells
 
+        DoFirstGenerationStep(activeCells);
         while(activeCells.Count > 0)
         {
             yield return delay;
@@ -51,11 +58,64 @@ public class Maze : MonoBehaviour
         activeCells.Add(CreateCell(RandomCoordinates));
     }
 
+    #region Maze generation method strategy
+
+    interface IMazeGenerationMethod
+    {
+        int GetCurrentIndex(List<MazeCell> activeCells);
+    }
+
+    class MazeGenerationLast : IMazeGenerationMethod
+    {
+        public int GetCurrentIndex(List<MazeCell> activeCells)
+        {
+            return activeCells.Count - 1;
+        }
+    }
+
+    class MazeGenerationFirst : IMazeGenerationMethod
+    {
+        public int GetCurrentIndex(List<MazeCell> activeCells)
+        {
+            return 0;
+        }
+    }
+
+    class MazeGenerationMiddle : IMazeGenerationMethod
+    {
+        public int GetCurrentIndex(List<MazeCell> activeCells)
+        {
+            return activeCells.Count / 2;
+        }
+    }
+
+    class MazeGenerationRandom : IMazeGenerationMethod
+    {
+        public int GetCurrentIndex(List<MazeCell> activeCells)
+        {
+            return Random.Range(0, activeCells.Count - 1);
+        }
+    }
+
+    #endregion
+
+    // change the nature of the maze you generate by using a different method to select the current index
+    private int GetCurrentIndex(List<MazeCell> activeCells, IMazeGenerationMethod generationMethod)
+    {
+        return generationMethod.GetCurrentIndex(activeCells);
+    }
+
     private void DoNextGenerationStep(List<MazeCell> activeCells)
     {
-        int currentIndex = activeCells.Count - 1;
+        
+        int currentIndex = GetCurrentIndex(activeCells, new MazeGenerationLast());
         MazeCell currentCell = activeCells[currentIndex];
-        MazeDirection direction = MazeDirections.RandomValue;
+        if(currentCell.IsFullyInitialized)
+        {
+            activeCells.RemoveAt(currentIndex);
+            return;
+        }
+        MazeDirection direction = currentCell.RandomUninitializedDirection;
         Vector2Int coordinates = currentCell.coordinates + direction.ToVector2Int();
 
         Debug.Log("DoNextGenerationStep index: " + currentIndex + ", cell: " + currentCell
@@ -73,13 +133,11 @@ public class Maze : MonoBehaviour
             else
             {
                 CreateWall(currentCell, neighbor, direction);
-                activeCells.RemoveAt(currentIndex);
             }
         }
         else
         {
             CreateWall(currentCell, null, direction);
-            activeCells.RemoveAt(currentIndex);
         }
     }
 

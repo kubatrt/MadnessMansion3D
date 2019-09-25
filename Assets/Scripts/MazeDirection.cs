@@ -22,7 +22,7 @@ public static class MazeDirections
         new Vector2Int(-1,0)    // West
     };
 
-    public static MazeDirection RandomValue
+    public static MazeDirection RandomDirection
     {
         get
         {
