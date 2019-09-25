@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &4251597901076339666
+--- !u!1 &7405155055732800051
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,22 +8,22 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 1510501807047939207}
-  - component: {fileID: 5169438425871361778}
+  - component: {fileID: 171775209286055383}
+  - component: {fileID: 5700826936930118039}
   m_Layer: 0
-  m_Name: Maze
+  m_Name: Maze Passage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &1510501807047939207
+--- !u!4 &171775209286055383
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4251597901076339666}
+  m_GameObject: {fileID: 7405155055732800051}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -31,23 +31,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &5169438425871361778
+--- !u!114 &5700826936930118039
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4251597901076339666}
+  m_GameObject: {fileID: 7405155055732800051}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 17f8359933b1c2d4ba9571f3bf65999e, type: 3}
+  m_Script: {fileID: 11500000, guid: 315cf36367b1a0b4481fed36bb390e2c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  size: {x: 20, y: 20}
-  cellPrefab: {fileID: 5543138606213321124, guid: b4e8a00a515136246bc21c2b4cd6907a,
-    type: 3}
-  passagePrefab: {fileID: 5700826936930118039, guid: f0ec100b5b520ec4d91272763a5fe4fa,
-    type: 3}
-  wallPrefab: {fileID: -9142615201385872497, guid: 622c5154421ebdf4299a1a88e79f370c,
-    type: 3}
-  generationStepDelay: 0.01
+  cell: {fileID: 0}
+  otherCell: {fileID: 0}
+  direction: 0

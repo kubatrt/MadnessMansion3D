@@ -13,18 +13,11 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         BeginGame();
-
-        Debug.Log("Random: " + MazeDirections.RandomValue);
-
-
-       Maze maze = mazeInstance.GetComponent<Maze>();
-        if (maze) Debug.Log("Maze found!");
     }
 
     // Update is called once per frame
     void Update()
     {
-
         if(Input.GetKeyDown(KeyCode.R))
         {
             RestartGame();
@@ -33,15 +26,14 @@ public class GameManager : MonoBehaviour
 
     private void BeginGame()
     {
-        Debug.Log("Begin");
-
+        Debug.Log("BeginGame");
         mazeInstance = Instantiate<Maze>(mazePrefab);
         StartCoroutine(mazeInstance.Generate());
     }
 
     private void RestartGame()
     {
-        Debug.Log("Restart");
+        Debug.Log("RestartGame");
         StopAllCoroutines();
         Destroy(mazeInstance.gameObject);
         BeginGame();

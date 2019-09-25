@@ -289,13 +289,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963194225}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1, z: -12}
+  m_LocalRotation: {x: 0.24088897, y: -0, z: -0, w: 0.9705527}
+  m_LocalPosition: {x: 0, y: 5, z: -20}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 27.878002, y: 0, z: 0}
 --- !u!1 &1892280345
 GameObject:
   m_ObjectHideFlags: 0
@@ -307,7 +307,7 @@ GameObject:
   - component: {fileID: 1892280347}
   - component: {fileID: 1892280346}
   m_Layer: 0
-  m_Name: GameManager
+  m_Name: Game Manager
   m_TagString: Untagged
   m_Icon: {fileID: 7250588514170254948, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
@@ -327,7 +327,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mazePrefab: {fileID: 5169438425871361778, guid: a0bf136eafa7a0645b2a14364f7f9bad,
     type: 3}
-  mazeObject: {fileID: 0}
 --- !u!4 &1892280347
 Transform:
   m_ObjectHideFlags: 0
