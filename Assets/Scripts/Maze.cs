@@ -20,25 +20,14 @@ public class Maze : MonoBehaviour
     [Range(0f, 1f)]
     public float doorProbability;
     public float generationStepDelay;
-
+    public List<MazeRoom> rooms = new List<MazeRoom>();
 
     private IMazeGenerationMethod mazeGenerationMethod;
     private MazeCell[,] cells;
-    public List<MazeRoom> rooms = new List<MazeRoom>();
+    
 
 
-    private MazeRoom CreateRoom(int indexToExclude)
-    {
-        MazeRoom newRoom = ScriptableObject.CreateInstance<MazeRoom>();
-        newRoom.settingsIndex = Random.Range(0, roomSettings.Length);
-        if(newRoom.settingsIndex == indexToExclude)
-        {
-            newRoom.settingsIndex = (newRoom.settingsIndex + 1) % roomSettings.Length;
-        }
-        newRoom.settings = roomSettings[newRoom.settingsIndex];
-        rooms.Add(newRoom);
-        return newRoom;
-    }
+
     
     public void SetMazeGenerationMethod(MazeGenerationMethod method)
     {
@@ -94,12 +83,6 @@ public class Maze : MonoBehaviour
         }
     }
 
-    private void DoFirstGenerationStep(List<MazeCell> activeCells)
-    {
-        MazeCell newCell = CreateCell(RandomCoordinates);
-        newCell.Initialize(CreateRoom(-1));
-        activeCells.Add(newCell);
-    }
 
     #region Maze generation method strategy
 
@@ -142,10 +125,16 @@ public class Maze : MonoBehaviour
 
     #endregion
 
-    // change the nature of the maze you generate by using a different method to select the current index
     private int GetCurrentIndex(List<MazeCell> activeCells)
     {
         return mazeGenerationMethod.GetCurrentIndex(activeCells);
+    }
+
+    private void DoFirstGenerationStep(List<MazeCell> activeCells)
+    {
+        MazeCell newCell = CreateCell(RandomCoordinates);
+        newCell.Initialize(CreateRoom(-1));
+        activeCells.Add(newCell);
     }
 
     private void DoNextGenerationStep(List<MazeCell> activeCells)
@@ -185,10 +174,23 @@ public class Maze : MonoBehaviour
         }
     }
 
+    private MazeRoom CreateRoom(int indexToExclude)
+    {
+        MazeRoom newRoom = ScriptableObject.CreateInstance<MazeRoom>();
+        newRoom.settingsIndex = Random.Range(0, roomSettings.Length);
+        if (newRoom.settingsIndex == indexToExclude)
+        {
+            newRoom.settingsIndex = (newRoom.settingsIndex + 1) % roomSettings.Length;
+        }
+        newRoom.settings = roomSettings[newRoom.settingsIndex];
+        rooms.Add(newRoom);
+        return newRoom;
+    }
+
     private void CreatePassage(MazeCell cell, MazeCell otherCell, MazeDirection direction)
     {
         //Debug.Log("CreatePassage " + cell.name + ", " + otherCell.name + ", " + direction.ToString());
-        MazePassage prefab = (Random.value < doorProbability) ? doorPrefab : passagePrefab;
+        MazePassage prefab = (Random.value < doorProbability) ? doorPrefab : passagePrefab; // 0.1 = 10%
         MazePassage passage = Instantiate<MazePassage>(prefab);
         passage.Initialize(cell, otherCell, direction);
         passage = Instantiate<MazePassage>(prefab);   // is 2nd needed? if yes then set pos.z = 0.475
@@ -239,7 +241,7 @@ public class Maze : MonoBehaviour
 
         newCell.coordinates = coordinates;
         newCell.name = "Cell_" + coordinates.x + "_" + coordinates.y;
-        // why parent?
+        // why parent? attach?
         newCell.transform.parent = transform;
         newCell.transform.localPosition  = new Vector3(coordinates.x - size.x * 0.5f + 0.5f, 
             0f, coordinates.y - size.y * 0.5f + 0.5f);
