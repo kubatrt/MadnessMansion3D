@@ -16,6 +16,27 @@ public class Maze : MonoBehaviour
     public MazePassage passagePrefab;
     public MazeWall wallPrefab;
 
+    private IMazeGenerationMethod mazeGenerationMethod;
+    public void SetMazeGenerationMethod(MazeGenerationMethod method)
+    {
+
+        switch(method)
+        {
+            case MazeGenerationMethod.Last:
+                mazeGenerationMethod = new MazeGenerationLast();
+                break;
+            case MazeGenerationMethod.Random:
+                mazeGenerationMethod = new MazeGenerationRandom();
+                break;
+            case MazeGenerationMethod.Middle:
+                mazeGenerationMethod = new MazeGenerationMiddle();
+                break;
+            case MazeGenerationMethod.First:
+                mazeGenerationMethod = new MazeGenerationFirst();
+                break;
+        }
+    }
+    
     private MazeCell[,] cells;
 
     public float generationStepDelay;
@@ -100,15 +121,15 @@ public class Maze : MonoBehaviour
     #endregion
 
     // change the nature of the maze you generate by using a different method to select the current index
-    private int GetCurrentIndex(List<MazeCell> activeCells, IMazeGenerationMethod generationMethod)
+    private int GetCurrentIndex(List<MazeCell> activeCells)
     {
-        return generationMethod.GetCurrentIndex(activeCells);
+        return mazeGenerationMethod.GetCurrentIndex(activeCells);
     }
 
     private void DoNextGenerationStep(List<MazeCell> activeCells)
     {
         
-        int currentIndex = GetCurrentIndex(activeCells, new MazeGenerationLast());
+        int currentIndex = GetCurrentIndex(activeCells);
         MazeCell currentCell = activeCells[currentIndex];
         if(currentCell.IsFullyInitialized)
         {

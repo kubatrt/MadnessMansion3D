@@ -1,10 +1,20 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
+
+public enum MazeGenerationMethod
+{
+    Last,
+    Random,
+    Middle,
+    First
+}
 
 public class GameManager : MonoBehaviour
 {
     public Maze mazePrefab;
+    public MazeGenerationMethod mazeGenerationMethod = MazeGenerationMethod.Last;
 
     private Maze mazeInstance;
 
@@ -28,6 +38,7 @@ public class GameManager : MonoBehaviour
     {
         Debug.Log("BeginGame");
         mazeInstance = Instantiate<Maze>(mazePrefab);
+        mazeInstance.SetMazeGenerationMethod(mazeGenerationMethod);
         StartCoroutine(mazeInstance.Generate());
     }
 
