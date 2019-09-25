@@ -16,6 +16,7 @@ public class Maze : MonoBehaviour
     public MazePassage passagePrefab;
     public MazeWall[] wallPrefabs;
     public MazeDoor doorPrefab;
+    public MazeRoomSettings[] roomSettings;
 
     [Range(0f, 1f)]
     public float doorProbability;
