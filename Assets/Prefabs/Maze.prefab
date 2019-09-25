@@ -59,4 +59,7 @@ MonoBehaviour:
   - {fileID: 594405552869516261, guid: d608ab7595665194bb62c022973b49bc, type: 3}
   - {fileID: 6239065244986654244, guid: 8d5d4959fe062cb4c8bf174b29651617, type: 3}
   - {fileID: 7368722874248224808, guid: 4642ab9effdbb08479e780d26ef0bfe2, type: 3}
+  doorPrefab: {fileID: 8759758519174309742, guid: a2583559b5aa63a4cae3fa2e4a5f9ed4,
+    type: 3}
+  doorProbability: 0.1
   generationStepDelay: 0.005

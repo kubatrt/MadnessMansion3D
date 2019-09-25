@@ -15,6 +15,10 @@ public class Maze : MonoBehaviour
     public MazeCell cellPrefab;
     public MazePassage passagePrefab;
     public MazeWall[] wallPrefabs;
+    public MazeDoor doorPrefab;
+
+    [Range(0f, 1f)]
+    public float doorProbability;
 
     private IMazeGenerationMethod mazeGenerationMethod;
     public void SetMazeGenerationMethod(MazeGenerationMethod method)
@@ -165,9 +169,10 @@ public class Maze : MonoBehaviour
     private void CreatePassage(MazeCell cell, MazeCell otherCell, MazeDirection direction)
     {
         //Debug.Log("CreatePassage " + cell.name + ", " + otherCell.name + ", " + direction.ToString());
-        MazePassage passage = Instantiate<MazePassage>(passagePrefab);
+        MazePassage prefab = (Random.value < doorProbability) ? doorPrefab : passagePrefab;
+        MazePassage passage = Instantiate<MazePassage>(prefab);
         passage.Initialize(cell, otherCell, direction);
-        passage = Instantiate<MazePassage>(passagePrefab);
+        passage = Instantiate<MazePassage>(passagePrefab);  // is this good 2 times?
         passage.Initialize(otherCell, cell, direction.GetOpposite());
     }
 
