@@ -32,23 +32,49 @@ public class Maze : MonoBehaviour
     {
         WaitForSeconds delay = new WaitForSeconds(generationStepDelay);
         cells = new MazeCell[size.x, size.y];
-        Vector2Int coordinates = RandomCoordinates;
-        while(ContainsCoordinates(coordinates) && GetCell(coordinates) == null)
+        List<MazeCell> activeCells = new List<MazeCell>();
+        DoFirstGenerationStep(activeCells);
+        while(activeCells.Count > 0)
         {
             yield return delay;
-            CreateCell(coordinates);
-            coordinates += MazeDirections.RandomValue.ToVector2Int();
+            DoNextGenerationStep(activeCells);
+            //CreateCell(coordinates);
+            //coordinates += MazeDirections.RandomValue.ToVector2Int();
         }
     }
 
-    private void CreateCell(Vector2Int coordinates)
+    private void DoFirstGenerationStep(List<MazeCell> activeCells)
+    {
+        activeCells.Add(CreateCell(RandomCoordinates));
+    }
+
+    private void DoNextGenerationStep(List<MazeCell> activeCells)
+    {
+        int currentIndex = activeCells.Count - 1;
+        MazeCell currentCell = activeCells[currentIndex];
+
+        MazeDirection direction = MazeDirections.RandomValue;
+        Vector2Int coordinates = currentCell.coordinates + direction.ToVector2Int();
+        // 
+        if (ContainsCoordinates(coordinates) && GetCell(coordinates) == null)
+        {
+            activeCells.Add(CreateCell(coordinates));
+        }
+        else
+        {
+            activeCells.RemoveAt(currentIndex);
+        }
+    }
+
+    private MazeCell CreateCell(Vector2Int coordinates)
     {
         MazeCell newCell = Instantiate<MazeCell>(cellPrefab);
-        cells[coordinates.x, coordinates.y] = newCell;
+        //cells[coordinates.x, coordinates.y] = newCell;
         newCell.coordinates = coordinates;
         newCell.name = "Cell_" + coordinates.x + "_" + coordinates.y;
         newCell.transform.parent = transform;
         newCell.transform.localPosition  = new Vector3(coordinates.x - size.x * 0.5f + 0.5f, 
             0f, coordinates.y - size.y * 0.5f + 0.5f);
+        return newCell;
     }
 }
