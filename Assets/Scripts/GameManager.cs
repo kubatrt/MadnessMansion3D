@@ -39,12 +39,15 @@ public class GameManager : MonoBehaviour
     private IEnumerator BeginGame()
     {
         Debug.Log("BeginGame");
+        Camera.main.clearFlags = CameraClearFlags.Skybox;
+        Camera.main.rect = new Rect(0f, 0f, 1f, 1f);
         mazeInstance = Instantiate<Maze>(mazePrefab);
         mazeInstance.SetMazeGenerationMethod(MazeGenerationMethod.Last);
         yield return StartCoroutine(mazeInstance.Generate());
-        Debug.Log("Player spawn");
         playerInstance = Instantiate(playerPrefab);
         playerInstance.SetLocation(mazeInstance.GetCell(mazeInstance.RandomCoordinates));
+        Camera.main.clearFlags = CameraClearFlags.Depth;
+        Camera.main.rect = new Rect(0f, 0f, 0.3f, 0.3f);
     }
 
     private void RestartGame()

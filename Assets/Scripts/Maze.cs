@@ -21,6 +21,7 @@ public class Maze : MonoBehaviour
     public float doorProbability;
     [Range(0f, 1f)]
     public float generationStepDelay;
+    public bool instantGeneration;
     public List<MazeRoom> rooms = new List<MazeRoom>();
 
     private IMazeGenerationMethod mazeGenerationMethod;
@@ -75,7 +76,8 @@ public class Maze : MonoBehaviour
         DoFirstGenerationStep(activeCells);
         while(activeCells.Count > 0)
         {
-            yield return delay;
+            if(!instantGeneration)
+                yield return delay;
             DoNextGenerationStep(activeCells);
         }
     }

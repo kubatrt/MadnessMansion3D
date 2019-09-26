@@ -75,5 +75,6 @@ MonoBehaviour:
     floorMaterial: {fileID: 2100000, guid: 8402a2cedeaf4884fbbbf262def2fd27, type: 2}
     wallMaterial: {fileID: 2100000, guid: 05891a5a40983bd48820d6c7d35ba5fa, type: 2}
   doorProbability: 0.1
-  generationStepDelay: 0
+  generationStepDelay: 0.001
+  instantGeneration: 1
   rooms: []
