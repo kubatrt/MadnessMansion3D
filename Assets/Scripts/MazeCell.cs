@@ -4,6 +4,7 @@ public class MazeCell : MonoBehaviour
 {
     public Vector2Int coordinates;
     public MazeRoom room;
+    private MazeCellEdge[] edges = new MazeCellEdge[MazeDirections.Count];
 
     private int initializedEdgesCount;
 
@@ -21,7 +22,7 @@ public class MazeCell : MonoBehaviour
         }
     }
 
-    private MazeCellEdge[] edges = new MazeCellEdge[MazeDirections.Count];
+
 
     public MazeCellEdge GetEdge(MazeDirection direction)
     {
@@ -56,6 +57,7 @@ public class MazeCell : MonoBehaviour
 
     public void OnPlayerEntered()
     {
+        room.Show();
         for (int i = 0; i < edges.Length; ++i)
         {
             edges[i].OnPlayerEntered();
@@ -64,9 +66,20 @@ public class MazeCell : MonoBehaviour
 
     public void OnPlayerExited()
     {
+        room.Hide();
         for (int i = 0; i < edges.Length; ++i)
         {
             edges[i].OnPlayerExited();
         }
+    }
+
+    public void Hide()
+    {
+        gameObject.SetActive(false);
+    }
+
+    public void Show()
+    {
+        gameObject.SetActive(true);
     }
 }
