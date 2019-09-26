@@ -15,14 +15,16 @@ public class GameManager : MonoBehaviour
 {
     public Maze mazePrefab;
     public MazeGenerationMethod mazeGenerationMethod = MazeGenerationMethod.Last;
+    public Player playerPrefab;
 
+    private Player playerInstance;
     private Maze mazeInstance;
 
 
     // Start is called before the first frame update
     void Start()
     {
-        BeginGame();
+        StartCoroutine(BeginGame());
     }
 
     // Update is called once per frame
@@ -34,19 +36,25 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    private void BeginGame()
+    private IEnumerator BeginGame()
     {
         Debug.Log("BeginGame");
         mazeInstance = Instantiate<Maze>(mazePrefab);
-        mazeInstance.SetMazeGenerationMethod(mazeGenerationMethod);
-        StartCoroutine(mazeInstance.Generate());
+        mazeInstance.SetMazeGenerationMethod(MazeGenerationMethod.Last);
+        yield return StartCoroutine(mazeInstance.Generate());
+        Debug.Log("Player spawn");
+        playerInstance = Instantiate(playerPrefab);
+        playerInstance.SetLocation(mazeInstance.GetCell(mazeInstance.RandomCoordinates));
     }
 
     private void RestartGame()
     {
-        Debug.Log("RestartGame");
         StopAllCoroutines();
         Destroy(mazeInstance.gameObject);
-        BeginGame();
+        if(playerInstance != null)
+        {
+            Destroy(playerInstance.gameObject);
+        }
+        StartCoroutine(BeginGame());
     }
 }

@@ -19,6 +19,7 @@ public class Maze : MonoBehaviour
     public MazeRoomSettings[] roomSettings;
     [Range(0f, 1f)]
     public float doorProbability;
+    [Range(0f, 1f)]
     public float generationStepDelay;
     public List<MazeRoom> rooms = new List<MazeRoom>();
 
@@ -26,12 +27,8 @@ public class Maze : MonoBehaviour
     private MazeCell[,] cells;
     
 
-
-
-    
     public void SetMazeGenerationMethod(MazeGenerationMethod method)
     {
-
         switch(method)
         {
             case MazeGenerationMethod.Last:
