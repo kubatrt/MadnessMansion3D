@@ -55,8 +55,20 @@ public class MazeCell : MonoBehaviour
         }
     }
 
+    public void Visitted()
+    {
+        //int mask = gameObject.layer;
+        //mask |= (1 << LayerMask.NameToLayer("Visitted"));
+        gameObject.layer = LayerMask.NameToLayer("Visitted");
+        for(int i = 0; i < transform.childCount; ++i)
+        {
+            transform.GetChild(i).gameObject.layer = LayerMask.NameToLayer("Visitted");
+        }
+    }
+
     public void OnPlayerEntered()
     {
+        room.MarkVisitted();
         room.Show();
         for (int i = 0; i < edges.Length; ++i)
         {
@@ -66,7 +78,7 @@ public class MazeCell : MonoBehaviour
 
     public void OnPlayerExited()
     {
-        room.Hide();
+        //room.Hide();
         for (int i = 0; i < edges.Length; ++i)
         {
             edges[i].OnPlayerExited();

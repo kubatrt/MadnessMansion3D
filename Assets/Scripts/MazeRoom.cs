@@ -4,10 +4,21 @@ using UnityEngine;
 
 public class MazeRoom : ScriptableObject
 {
+    //public bool isVisitted;
     public int settingsIndex;
     public MazeRoomSettings settings;
 
     private List<MazeCell> cells = new List<MazeCell>();
+
+    public void MarkVisitted()
+    {
+        //isVisitted = true;
+
+        for (int i = 0; i < cells.Count; i++)
+        {
+            cells[i].Visitted();
+        }
+    }
 
     public void Add(MazeCell cell)
     {

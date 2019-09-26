@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
+    public Transform body;
     private MazeCell currentCell;
 
     public void SetLocation(MazeCell cell)
