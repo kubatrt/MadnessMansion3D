@@ -29,6 +29,11 @@ public class MazeCell : MonoBehaviour
         return edges[(int)direction];
     }
 
+    public MazeCellEdge GetRandomEdge()
+    {
+        return edges[Random.Range(0, edges.Length)];
+    }
+
     public void SetEdge(MazeDirection direction, MazeCellEdge edge)
     {
         edges[(int)direction] = edge;
@@ -55,15 +60,10 @@ public class MazeCell : MonoBehaviour
         }
     }
 
+
     public void Visitted()
     {
-        //int mask = gameObject.layer;
-        //mask |= (1 << LayerMask.NameToLayer("Visitted"));
-        gameObject.layer = LayerMask.NameToLayer("Visitted");
-        for(int i = 0; i < transform.childCount; ++i)
-        {
-            transform.GetChild(i).gameObject.layer = LayerMask.NameToLayer("Visitted");
-        }
+        ChangeLayerRecursively.ChangeLayersRecursively(gameObject.transform, "Visitted");
     }
 
     public void OnPlayerEntered()
@@ -78,7 +78,7 @@ public class MazeCell : MonoBehaviour
 
     public void OnPlayerExited()
     {
-        //room.Hide();
+        //room.Hide(); // Based on object activation, must be changed.
         for (int i = 0; i < edges.Length; ++i)
         {
             edges[i].OnPlayerExited();
